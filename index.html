@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exoplanet Analytics — NASA Archive Research Platform</title>
+  <meta name="description" content="Professional aerospace research platform and data exploration interface for confirmed exoplanetary systems cataloged by the NASA Exoplanet Archive pscomppars dataset.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/chart.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Restrained Aerospace Header Navigation -->
+    <header class="site-header" id="site-header" role="banner">
+      <div class="header-inner">
+        <a href="#overview" class="brand-wrapper" aria-label="Exoplanet Analytics Home">
+          <div class="brand-symbol" aria-hidden="true">&bull;</div>
+          <div class="brand-text">
+            <span class="title">EXOPLANET ANALYTICS</span>
+            <span class="subtitle">NASA ARCHIVE RESEARCH PLATFORM</span>
+          </div>
+        </a>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" role="tablist" aria-label="Platform views">
+          <button class="nav-tab-btn active" role="tab" aria-selected="true" data-tab="overview" id="tab-overview">
+            <span>Overview</span>
+          </button>
+          <button class="nav-tab-btn" role="tab" aria-selected="false" data-tab="discovery" id="tab-discovery">
+            <span>Discovery Analytics</span>
+          </button>
+          <button class="nav-tab-btn" role="tab" aria-selected="false" data-tab="explorer" id="tab-explorer">
+            <span>Planet Explorer</span>
+          </button>
+          <button class="nav-tab-btn" role="tab" aria-selected="false" data-tab="characteristics" id="tab-characteristics">
+            <span>Planetary Physics</span>
+          </button>
+          <button class="nav-tab-btn" role="tab" aria-selected="false" data-tab="models" id="tab-models">
+            <span>Correlation & Models</span>
+          </button>
+          <button class="nav-tab-btn" role="tab" aria-selected="false" data-tab="quality" id="tab-quality">
+            <span>Data Quality</span>
+          </button>
+        </nav>
+
+        <!-- Status Indicator -->
+        <div class="header-status" title="Active catalog derived from NASA Exoplanet Archive composite parameters">
+          <span class="status-dot"></span>
+          <span id="badge-planet-count">6,451 WORLDS</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Refined Aerospace Hero Section (Magdrive Inspired) -->
+    <section class="hero-aerospace-section" aria-label="Platform Overview">
+      <div class="hero-inner">
+        <div class="hero-text-col">
+          <span class="hero-eyebrow">EXOPLANETARY RESEARCH / DATA EXPLORATION</span>
+          <h1 class="hero-headline">WORLDS BEYOND OUR SOLAR SYSTEM</h1>
+          <p class="hero-description">
+            Explore confirmed exoplanet discoveries, compare planetary properties, and investigate the data behind our expanding knowledge of distant worlds.
+          </p>
+
+          <div class="hero-actions">
+            <button type="button" class="btn-primary" id="btn-hero-explore-data">
+              EXPLORE THE DATA
+            </button>
+            <button type="button" class="btn-secondary" id="btn-hero-view-catalog">
+              VIEW THE CATALOG
+            </button>
+          </div>
+
+          <!-- Dataset Registry Specification -->
+          <div class="hero-dataset-registry">
+            <span>ARCHIVE REGISTRY:</span>
+            <strong id="hero-dynamic-count">6,451</strong>
+            <span>CONFIRMED WORLDS &bull; NASA COMPOSITE PARAMETERS</span>
+          </div>
+        </div>
+
+        <!-- Scientific Photographic Plate -->
+        <div class="hero-visual-plate">
+          <img src="assets/hero-banner.png" alt="Curved exoplanet horizon and orbital trajectories in deep space" class="hero-visual-img">
+          <div class="hero-plate-caption">
+            <span>PLATE 01: COMPOSITE ORBITAL TRAJECTORY SURVEY</span>
+            <span>EPOCH 2026.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="main-content" id="main-content">
+
+      <!-- ==================================================================
+           SECTION 1: OVERVIEW — TECHNICAL SPEC SHEET & MACRO TRENDS
+           ================================================================== -->
+      <section class="tab-panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+        <div class="section-header">
+          <span class="section-eyebrow">SECTION 01 / MACRO ARCHITECTURE</span>
+          <h2 class="section-title">Overview Dashboard — Population Metrics</h2>
+          <p class="section-desc">
+            Baseline macroscopic parameters derived from the NASA Exoplanet Archive composite table (`pscomppars`). Values are computed directly from the validated dataset.
+          </p>
+        </div>
+
+        <!-- Technical Spec Sheet Grid (Magdrive Alignment) -->
+        <div class="technical-spec-grid">
+          <div class="spec-cell">
+            <span class="spec-label">Total Confirmed Planets</span>
+            <div class="spec-value" id="kpi-total-planets">6,451</div>
+            <div class="spec-context">
+              100% verified unique exoplanetary bodies cataloged.
+            </div>
+          </div>
+
+          <div class="spec-cell">
+            <span class="spec-label">Host Star Systems</span>
+            <div class="spec-value" id="kpi-host-stars">4,847</div>
+            <div class="spec-context">
+              Distinct host stars, averaging 1.33 planets per system.
+            </div>
+          </div>
+
+          <div class="spec-cell">
+            <span class="spec-label">Detection Methods</span>
+            <div class="spec-value" id="kpi-total-methods">11</div>
+            <div class="spec-context">
+              Observational techniques, led by Transit (74.2%).
+            </div>
+          </div>
+
+          <div class="spec-cell">
+            <span class="spec-label">Survey Epoch</span>
+            <div class="spec-value" id="kpi-period-range">1992–2026</div>
+            <div class="spec-context">
+              34-year observational baseline across major surveys.
+            </div>
+          </div>
+
+          <div class="spec-cell">
+            <span class="spec-label">Measurement Completeness</span>
+            <div class="spec-value" id="kpi-completeness" style="color: var(--accent-teal);">96.6%</div>
+            <div class="spec-context">
+              Data availability across key physical parameters.
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Callout Strip -->
+        <div class="technical-callout">
+          <h4>Observational Geometry & Selection Effects</h4>
+          <p>
+            The distribution of cataloged exoplanets is fundamentally governed by observational detection thresholds. Space observatories such as Kepler and TESS account for the majority of discoveries via the <strong>Transit method (4,785 records)</strong>, which detects periodic photometric stellar dips, while ground spectrographs contribute via <strong>Radial Velocity (1,204 records)</strong> measuring Doppler reflex motion.
+          </p>
+        </div>
+
+        <!-- 4 Instrument Visualizations Grid -->
+        <div class="charts-grid-2x2">
+          <!-- Chart 1: Discoveries Over Time -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">Discoveries Over Time</h3>
+                <p class="instrument-subtitle">Annual count of confirmed exoplanet announcements (1992–2026)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-overview-timeline"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Peaks in 2014 and 2016 correspond to major Kepler mission candidate validation data releases.
+            </div>
+          </div>
+
+          <!-- Chart 2: Discovery-Method Distribution -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">Discovery-Method Distribution</h3>
+                <p class="instrument-subtitle">Proportion of planets cataloged by observational technique</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-overview-methods"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Shows relative contribution across Transit, Radial Velocity, Microlensing, Imaging, and TTV.
+            </div>
+          </div>
+
+          <!-- Chart 3: Planetary Radius Distribution -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">Planet Radius Distribution</h3>
+                <p class="instrument-subtitle">Physical size distribution normalized to Earth radii (R⊕ &approx; 6,371 km)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-overview-radius"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Sub-Neptunes and Super-Earths form the most abundant demographic within the observed population.
+            </div>
+          </div>
+
+          <!-- Chart 4: Planetary Mass Distribution -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">Planet Mass Distribution</h3>
+                <p class="instrument-subtitle">Planetary mass distribution in Earth masses (M⊕, logarithmic scale)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-overview-mass"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Distribution spans from terrestrial planets (0.02 M⊕) to super-Jovian gas giants (> 3,000 M⊕).
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SECTION 2: DISCOVERY ANALYTICS — TIMELINE & FACILITIES
+           ================================================================== -->
+      <section class="tab-panel" id="panel-discovery" role="tabpanel" aria-labelledby="tab-discovery">
+        <div class="section-header">
+          <span class="section-eyebrow">SECTION 02 / INSTRUMENTATION</span>
+          <h2 class="section-title">Discovery Analytics — Temporal Trends & Observatories</h2>
+          <p class="section-desc">
+            Historical progression of exoplanetary confirmations, moving-average trends, and facility attribution across space missions and ground facilities.
+          </p>
+        </div>
+
+        <!-- A. Detailed Timeline Chart -->
+        <div class="instrument-card" style="margin-bottom: 2.5rem;">
+          <div class="instrument-header">
+            <div>
+              <h3 class="instrument-title">A. Annual Discovery Series & 3-Year Moving Average</h3>
+              <p class="instrument-subtitle">
+                Dark bars represent annual validated discoveries; amber line indicates the 3-year smoothed trend.
+              </p>
+            </div>
+            <button type="button" class="btn-toggle-instrument active" id="btn-toggle-ma">
+              TOGGLE 3-YEAR MOVING AVERAGE
+            </button>
+          </div>
+          <div class="chart-viewport" style="height: 380px;">
+            <canvas id="chart-discovery-timeline-detailed"></canvas>
+          </div>
+          <div class="instrument-footer-note">
+            Annual spikes represent validation batches from primary missions rather than bursts in astronomical formation rates.
+          </div>
+        </div>
+
+        <!-- B & C: Discovery Methods & Facilities Side by Side -->
+        <div class="charts-grid-2x2">
+          <!-- B. Methods Comparison -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">B. Discovery Methods Comparison</h3>
+                <p class="instrument-subtitle">Total records attributed to each detection technique</p>
+              </div>
+            </div>
+            <div class="chart-viewport" style="height: 350px;">
+              <canvas id="chart-methods-bar"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Transit: 4,785 &bull; Radial Velocity: 1,204 &bull; Microlensing: 292 &bull; Imaging: 98 &bull; TTV: 29.
+            </div>
+          </div>
+
+          <!-- C. Facilities Comparison -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">C. Discovery Facilities & Observatories</h3>
+                <p class="instrument-subtitle">Top credited observing missions and telescope facilities</p>
+              </div>
+            </div>
+            <div class="chart-viewport" style="height: 350px;">
+              <canvas id="chart-facilities-bar"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Kepler: 2,787 &bull; TESS: 1,012 &bull; K2: 550 &bull; Multiple Observatories: 355 &bull; La Silla: 311.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SECTION 3: PLANET EXPLORER — TECHNICAL CATALOG
+           ================================================================== -->
+      <section class="tab-panel" id="panel-explorer" role="tabpanel" aria-labelledby="tab-explorer">
+        <div class="section-header">
+          <span class="section-eyebrow">SECTION 03 / CATALOG REGISTER</span>
+          <h2 class="section-title">Planet Explorer — Technical Catalog</h2>
+          <p class="section-desc">
+            Searchable scientific register of 6,451 exoplanets. Filter across detection methods, radius categories, and sort by available physical parameters.
+          </p>
+        </div>
+
+        <!-- Catalog Toolbar -->
+        <div class="catalog-toolbar">
+          <div class="toolbar-inputs-row">
+            <div class="search-field-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="explorer-search" class="search-input" placeholder="Search by planet name or host star (e.g. 55 Cnc b, TRAPPIST-1, Kepler-22 b)..." aria-label="Search exoplanets">
+            </div>
+
+            <select id="filter-method" class="filter-select" aria-label="Filter by Discovery Method">
+              <option value="all">All Discovery Methods</option>
+              <option value="Transit">Transit</option>
+              <option value="Radial Velocity">Radial Velocity</option>
+              <option value="Microlensing">Microlensing</option>
+              <option value="Imaging">Imaging</option>
+              <option value="Transit Timing Variations">Transit Timing Variations</option>
+            </select>
+
+            <select id="filter-radius-bin" class="filter-select" aria-label="Filter by Radius Category">
+              <option value="all">All Size Categories</option>
+              <option value="<=1 Earth radius">&le; 1 Earth radius (Sub-Earth)</option>
+              <option value="1-2 Earth radii">1–2 Earth radii (Super-Earth)</option>
+              <option value="2-4 Earth radii">2–4 Earth radii (Sub-Neptune)</option>
+              <option value="4-10 Earth radii">4–10 Earth radii (Neptune-like)</option>
+              <option value=">10 Earth radii">&gt; 10 Earth radii (Jovian Gas Giant)</option>
+            </select>
+
+            <button type="button" class="btn-reset-filters" id="btn-reset-filters">Reset Filters</button>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.84rem; color: var(--text-secondary); flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              Showing <strong id="filter-matching-count" style="color: var(--text-primary); font-family: var(--font-mono);">6,451</strong> of <strong id="filter-total-count" style="font-family: var(--font-mono);">6,451</strong> cataloged exoplanets
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">
+              CLICK PLANET NAME FOR TECHNICAL SPECIFICATION SHEET
+            </div>
+          </div>
+        </div>
+
+        <!-- Accessible Technical Table (modern-web-guidance: responsive-table) -->
+        <div tabindex="0" role="region" aria-labelledby="planet-table-caption" class="table-wrapper">
+          <table class="data-table" id="planet-table">
+            <caption id="planet-table-caption" style="display: none;">Scientific Catalog of Confirmed Exoplanets</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="sortable" data-col="name">Planet Name <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="host">Host Star <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="method">Method <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="year">Year <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="radius">Radius (R⊕) <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="mass">Mass (M⊕) <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="period">Period (d) <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="temp">Temp (K) <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col" class="sortable" data-col="dist">Dist (pc) <span class="sort-icon">&updownarrow;</span></th>
+                <th scope="col">Compare</th>
+              </tr>
+            </thead>
+            <tbody id="planet-table-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="table-pagination-footer">
+          <div class="pagination-info" id="pagination-info">
+            Showing 1–20 of 6,451 records
+          </div>
+          <div class="pagination-buttons" id="pagination-buttons">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Side-by-Side Visual Planetary Analysis Experience -->
+        <div class="comparison-container" id="comparison-arena">
+          <div class="comparison-header">
+            <div>
+              <span class="module-eyebrow">MODULE 03 / SYSTEM COMPARISON</span>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: -0.01em;">
+                Visual Planetary Analysis Experience
+              </h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                Contrast physical scales, orbital dynamics, thermal regimes, and structural architectures across selected worlds.
+              </p>
+            </div>
+            <div class="preset-pills-row">
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); align-self: center;">PRESETS:</span>
+              <button type="button" class="preset-tab-btn" data-preset="55cnc">55 Cancri System</button>
+              <button type="button" class="preset-tab-btn" data-preset="trappist">TRAPPIST-1 Zone</button>
+              <button type="button" class="preset-tab-btn" data-preset="giants">Hot Jupiters</button>
+              <button type="button" class="preset-tab-btn" data-preset="earthlike">Earth Analogs</button>
+              <button type="button" class="preset-tab-btn" id="btn-clear-comparison" style="color: var(--accent-rose);">Clear</button>
+            </div>
+          </div>
+
+          <!-- Section 1: Planet Selection Toolbar & Search Autocomplete -->
+          <div class="comp-search-bar-row">
+            <div class="comp-search-wrapper">
+              <input type="text" id="comp-search-input" class="search-input" placeholder="Search planet or host star to add (e.g. Kepler-22 b, TRAPPIST-1, 55 Cnc)..." autocomplete="off" aria-label="Search exoplanets to add to comparison" />
+              <div id="comp-search-results" class="comp-search-results" style="display: none;"></div>
+            </div>
+            <div class="comp-selection-counter" id="comp-selection-counter">
+              <span>0 / 4 SELECTED</span>
+            </div>
+          </div>
+
+          <!-- Selected Planets Horizontal Strip -->
+          <div class="selected-planets-strip" id="selected-planets-strip">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Empty State Container -->
+          <div class="comparison-empty-panel" id="comparison-empty-state" style="display: none;">
+            <p style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.4rem;">No Planetary Bodies Selected</p>
+            <p>Select up to 4 planets using the search bar above, pick one of the presets, or click "+ Compare" on any record in the catalog table.</p>
+          </div>
+
+          <!-- Visual Comparison Workspace Modules -->
+          <div id="comparison-visual-content">
+            <!-- Section 2: Visual Planet Size Comparison Stage -->
+            <div class="comparison-visual-module" id="module-visual-size">
+              <div class="module-header-row">
+                <div>
+                  <span class="module-eyebrow">VISUAL SCALE / PHYSICAL DIMENSIONS</span>
+                  <h4 class="module-title">Proportional Planetary Radius Comparison</h4>
+                  <p class="module-desc">Geometric comparison of planetary discs against Earth's equatorial baseline ($1.00\ R_\oplus$)</p>
+                </div>
+                <div class="scale-toggle-wrap">
+                  <button type="button" class="scale-toggle-btn active" id="btn-scale-true" data-scale="true">Physical Scale</button>
+                  <button type="button" class="scale-toggle-btn" id="btn-scale-norm" data-scale="norm">Normalized Comparison</button>
+                </div>
+              </div>
+              <div class="visual-size-stage" id="visual-size-stage">
+                <!-- Rendered dynamically -->
+              </div>
+              <div class="scientific-disclaimer-bar" id="size-disclaimer-bar">
+                <strong>Scaling Protocol:</strong> Physical scale renders circle diameter linearly proportional to measured radius ($R_\oplus$). Planetary colors and lighting are illustrative encodings; true surface and cloud compositions remain unobserved.
+              </div>
+            </div>
+
+            <!-- Section 3: Multi-Metric Comparison Chart (Segregated Axes) -->
+            <div class="comparison-visual-module" id="module-metric-chart">
+              <div class="module-header-row">
+                <div>
+                  <span class="module-eyebrow">ISOLATED METRIC BENCHMARK / COMMON BASELINE</span>
+                  <h4 class="module-title">Multi-Metric Comparative Analysis</h4>
+                  <p class="module-desc" id="comp-metric-desc">Comparative horizontal ranking of selected bodies across a single physical property.</p>
+                </div>
+                <div class="metric-selector-pills" id="comp-metric-selectors">
+                  <button type="button" class="metric-select-btn active" data-metric="radius">Radius (R⊕)</button>
+                  <button type="button" class="metric-select-btn" data-metric="mass">Mass (M⊕)</button>
+                  <button type="button" class="metric-select-btn" data-metric="period">Period (days)</button>
+                  <button type="button" class="metric-select-btn" data-metric="semi_major">Semi-Major Axis (AU)</button>
+                  <button type="button" class="metric-select-btn" data-metric="temp">Equilibrium Temp (K)</button>
+                  <button type="button" class="metric-select-btn" data-metric="dist">Distance (pc)</button>
+                </div>
+              </div>
+              <div class="chart-viewport" style="height: 280px; position: relative;">
+                <canvas id="chart-comp-single-metric"></canvas>
+              </div>
+              <div class="scientific-disclaimer-bar" id="comp-metric-note">
+                <strong>Scientific Rigor:</strong> Incompatible physical units are strictly segregated. Values are plotted on a dedicated calibrated axis with explicit demarcation of unmeasured parameters.
+              </div>
+            </div>
+
+            <!-- Section 4 & Section 5: Dual Grid (Orbital Dynamics + Radar Fingerprint) -->
+            <div class="comparison-dual-grid">
+              <!-- Left: Orbital Dynamics Scatter + Schematic Orbits -->
+              <div class="comparison-visual-module">
+                <div class="module-header-row">
+                  <div>
+                    <span class="module-eyebrow">ORBITAL DYNAMICS / KEPLERIAN CORRELATION</span>
+                    <h4 class="module-title">Orbital Mechanics Scatter ($a$ vs $P$)</h4>
+                    <p class="module-desc">Semi-major axis ($AU$) versus orbital period ($d$) on logarithmic scale.</p>
+                  </div>
+                </div>
+                <div class="chart-viewport" style="height: 260px; position: relative;">
+                  <canvas id="chart-comp-orbital-scatter"></canvas>
+                </div>
+                <!-- Schematic Concentric Orbits -->
+                <div class="schematic-orbital-wrap" id="schematic-orbital-wrap">
+                  <div class="schematic-orbital-header" id="schematic-orbital-header">SYSTEM ARCHITECTURE SCHEMATIC</div>
+                  <svg id="schematic-orbital-svg" class="schematic-orbital-svg" viewBox="0 0 500 160"></svg>
+                  <div class="scientific-disclaimer-bar" style="margin-top: 0.5rem; border-top: none; padding-left: 0; padding-right: 0;" id="schematic-disclaimer">
+                    Schematic orbit model. When planets share a host star, concentric rings depict relative semi-major axes.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Planetary Profile Radar -->
+              <div class="comparison-visual-module">
+                <div class="module-header-row">
+                  <div>
+                    <span class="module-eyebrow">MULTIDIMENSIONAL FINGERPRINT</span>
+                    <h4 class="module-title">Planetary Profile Radar</h4>
+                    <p class="module-desc">Normalized min-max scaling ($[0.1, 1.0]$) within current selection set.</p>
+                  </div>
+                  <div>
+                    <button type="button" class="scale-toggle-btn" id="btn-toggle-radar">Hide Radar</button>
+                  </div>
+                </div>
+                <div id="radar-viewport-wrap" class="chart-viewport" style="height: 380px; position: relative;">
+                  <canvas id="chart-comp-radar"></canvas>
+                </div>
+                <div class="scientific-disclaimer-bar">
+                  <strong>Normalization Method:</strong> Dimensions are min-max scaled relative to the selected group. Missing measurements are omitted from respective axes and never replaced with 0.
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 6: Dynamic Difference Summary -->
+            <div class="comparison-visual-module">
+              <div class="module-header-row">
+                <div>
+                  <span class="module-eyebrow">DYNAMIC SYNTHESIS / DATA INSIGHTS</span>
+                  <h4 class="module-title">Comparative Findings Summary</h4>
+                  <p class="module-desc">Algorithmically derived astrophysical conclusions from active catalog parameters.</p>
+                </div>
+              </div>
+              <div class="difference-summary-grid" id="difference-summary-grid">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Section 7: Compact Numerical Comparison Table -->
+            <div class="comparison-visual-module">
+              <div class="module-header-row">
+                <div>
+                  <span class="module-eyebrow">FULL SPECIFICATION MATRIX</span>
+                  <h4 class="module-title">Technical Parameter Table</h4>
+                  <p class="module-desc">Direct numerical measurements with minimum and maximum values highlighted across comparable rows.</p>
+                </div>
+                <div>
+                  <button type="button" class="scale-toggle-btn" id="btn-toggle-spec-table">Collapse Table</button>
+                </div>
+              </div>
+              <div id="comp-table-collapse-wrapper" style="overflow-x: auto;">
+                <table class="data-table comp-spec-table" id="comp-numerical-table">
+                  <!-- Populated dynamically -->
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SECTION 4: PLANETARY PHYSICS & STELLAR SYSTEM ARCHITECTURE
+           ================================================================== -->
+      <section class="tab-panel" id="panel-characteristics" role="tabpanel" aria-labelledby="tab-characteristics">
+        <div class="section-header">
+          <span class="section-eyebrow">SECTION 04 / ASTROPHYSICAL DISTRIBUTIONS</span>
+          <h2 class="section-title">Planetary Physics & Host-Star Systems</h2>
+          <p class="section-desc">
+            Physical dimensions, mass-radius scaling, orbital dynamics, thermal regimes, and host-star properties across the cataloged population.
+          </p>
+        </div>
+
+        <div class="charts-grid-2x2">
+          <!-- A. Radius Categories Distribution -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">A. Radius Category Bins</h3>
+                <p class="instrument-subtitle">Binned size spectrum in Earth radii</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-radius-bins"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Categorized into Sub-Earth (&le;1), Super-Earth (1–2), Sub-Neptune (2–4), Neptune-like (4–10), Jovian (&gt;10 R⊕).
+            </div>
+          </div>
+
+          <!-- B. Mass versus Radius Scatter Plot -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">B. Mass vs. Radius Scatter Plot (Log-Log)</h3>
+                <p class="instrument-subtitle">Dual-measured planets showing density and compositional regimes</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-mass-radius-scatter"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Axes scaled logarithmically. Hover points for individual planet parameters and host star identifiers.
+            </div>
+          </div>
+
+          <!-- C. Orbital Period Distribution -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">C. Orbital Period Distribution</h3>
+                <p class="instrument-subtitle">Orbital periods in days (logarithmic scale)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-period-hist"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Spans ultra-short periods (&lt; 1 day) up to long-period cold gas giants (&gt; 10,000 days).
+            </div>
+          </div>
+
+          <!-- D. Equilibrium Temperature -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">D. Equilibrium Temperature Distribution</h3>
+                <p class="instrument-subtitle">Theoretical blackbody temperatures in Kelvin (K)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-temp-hist"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Calculated assuming uniform planetary albedo. Does not account for atmospheric greenhouse warming.
+            </div>
+          </div>
+        </div>
+
+        <!-- E & F: Stellar Properties & Distance -->
+        <div class="charts-grid-2x2" style="margin-top: 2rem;">
+          <!-- E. Host-Star Properties -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">E. Host-Star Properties: Temp vs. Mass</h3>
+                <p class="instrument-subtitle">Host star effective surface temperature (K) vs. Stellar mass (M☉)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-stellar-scatter"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Displays Main Sequence host stellar distribution (spectral types F, G, K, and M-dwarfs).
+            </div>
+          </div>
+
+          <!-- F. Distance from Earth vs Radius -->
+          <div class="instrument-card">
+            <div class="instrument-header">
+              <div>
+                <h3 class="instrument-title">F. System Distance vs. Planetary Radius</h3>
+                <p class="instrument-subtitle">Distance in parsecs (1 pc &approx; 3.26 ly) plotted against radius (R⊕)</p>
+              </div>
+            </div>
+            <div class="chart-viewport">
+              <canvas id="chart-distance-scatter"></canvas>
+            </div>
+            <div class="instrument-footer-note">
+              Reflects survey target selection. Nearby systems are heavily targeted by radial velocity spectrographs.
+            </div>
+          </div>
+        </div>
+
+        <div class="caveat-panel">
+          <h4>Scientific Caution: Habitability Interpretation</h4>
+          <p>
+            Equilibrium temperature ($T_{eq}$) represents a theoretical blackbody value. It does not establish surface habitability: atmospheric composition, volatile inventory, surface liquid water, magnetospheric shielding, and stellar flare activity are critical determinants.
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SECTION 5: CORRELATION & STATISTICAL MODELING
+           ================================================================== -->
+      <section class="tab-panel" id="panel-models" role="tabpanel" aria-labelledby="tab-models">
+        <div class="section-header">
+          <span class="section-eyebrow">SECTION 05 / STATISTICAL ENGINE</span>
+          <h2 class="section-title">Correlation & Statistical Modeling Engine</h2>
+          <p class="section-desc">
+            Empirical evaluations conducted in Python: Pearson correlation matrices, log-log Mass vs. Radius regression with held-out test splits, and IQR outlier boundaries.
+          </p>
+        </div>
+
+        <!-- A. Correlation Heatmap -->
+        <div class="instrument-card" style="margin-bottom: 2.5rem;">
+          <div class="instrument-header">
+            <div>
+              <h3 class="instrument-title">A. Pearson Correlation Matrix</h3>
+              <p class="instrument-subtitle">
+                Linear correlation coefficients across 8 physical and stellar parameters. Hover cells for exact values.
+              </p>
+            </div>
+          </div>
+          <div class="heatmap-scroll-area" id="heatmap-wrapper">
+            <!-- Heatmap generated dynamically -->
+          </div>
+          <div class="instrument-footer-note">
+            Statistical correlation indicates mutual linear association; it does not establish physical causation.
+          </div>
+        </div>
+
+        <!-- B. Regression Model -->
+        <div class="instrument-card" style="margin-bottom: 2.5rem;">
+          <div class="instrument-header">
+            <div>
+              <h3 class="instrument-title">B. Baseline Regression: log₁₀(Radius) vs. log₁₀(Mass)</h3>
+              <p class="instrument-subtitle">
+                Trained on an 80% train split and evaluated on a 20% test holdout (N = 1,276 test planets).
+              </p>
+            </div>
+          </div>
+
+          <!-- Regression Metrics Row -->
+          <div class="regression-spec-row">
+            <div class="reg-spec-box">
+              <div class="reg-spec-label">Model Equation</div>
+              <div class="reg-spec-value" style="font-size: 1.05rem;" id="reg-eq">log₁₀(M) = 2.383·log₁₀(R) - 0.006</div>
+            </div>
+            <div class="reg-spec-box">
+              <div class="reg-spec-label">Test R² Score</div>
+              <div class="reg-spec-value" id="reg-r2">0.8448</div>
+            </div>
+            <div class="reg-spec-box">
+              <div class="reg-spec-label">Test MAE (log₁₀ M⊕)</div>
+              <div class="reg-spec-value" id="reg-mae">0.2678</div>
+            </div>
+            <div class="reg-spec-box">
+              <div class="reg-spec-label">Test RMSE (log₁₀ M⊕)</div>
+              <div class="reg-spec-value" id="reg-rmse">0.4020</div>
+            </div>
+          </div>
+
+          <div class="chart-viewport" style="height: 380px;">
+            <canvas id="chart-regression-scatter"></canvas>
+          </div>
+
+          <!-- Interactive Mass Predictor -->
+          <div class="predictor-console">
+            <div>
+              <h4 style="font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">
+                Mass-Radius Model Predictor
+              </h4>
+              <p style="font-size: 0.86rem; color: var(--text-secondary);">
+                Input an exoplanetary radius in Earth radii to compute the estimated mass based on the baseline model:
+              </p>
+            </div>
+            <div class="predictor-controls">
+              <label for="input-radius-predict" style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-secondary);">Radius (R⊕):</label>
+              <input type="number" id="input-radius-predict" class="predictor-input" value="1.0" min="0.1" max="30" step="0.1" aria-label="Input planet radius">
+              <button type="button" class="btn-primary" id="btn-run-prediction" style="padding: 0.65rem 1.25rem; font-size: 0.8rem;">Calculate Mass</button>
+            </div>
+            <div class="predictor-result-display">
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">
+                Predicted Mass
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-primary);" id="predict-result-text">
+                0.99 M⊕
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C. Outlier Review Bounds -->
+        <div class="instrument-card">
+          <div class="instrument-header">
+            <div>
+              <h3 class="instrument-title">C. Outlier Analysis & IQR Threshold Bounds</h3>
+              <p class="instrument-subtitle">
+                Interquartile Range review flags. Statistical outliers frequently represent extreme astrophysics (e.g. ultra-hot Jupiters) rather than measurement errors.
+              </p>
+            </div>
+          </div>
+          <div class="quality-spec-grid" id="outlier-cards-container">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SECTION 6: DATA QUALITY, PROVENANCE & TRANSPARENCY
+           ================================================================== -->
+      <section class="tab-panel" id="panel-quality" role="tabpanel" aria-labelledby="tab-quality">
+        <div class="section-header">
+          <span class="section-eyebrow">SECTION 06 / DATA PROVENANCE</span>
+          <h2 class="section-title">Data Quality, Provenance & Limitations</h2>
+          <p class="section-desc">
+            Auditing completeness, data constraints, exact duplicates, and field definitions to provide scientific transparency.
+          </p>
+        </div>
+
+        <!-- Quality Metrics Grid -->
+        <div class="quality-spec-grid">
+          <div class="spec-cell" style="background-color: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-xs);">
+            <span class="spec-label">Exact Duplicates</span>
+            <div class="spec-value" style="color: var(--accent-teal);">0</div>
+            <div class="spec-context">Cleaned and verified unique celestial bodies.</div>
+          </div>
+
+          <div class="spec-cell" style="background-color: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-xs);">
+            <span class="spec-label">Domain Constraints</span>
+            <div class="spec-value" style="color: var(--accent-teal);">0 Violations</div>
+            <div class="spec-context">Physical constraints enforced (mass &gt; 0, radius &gt; 0, period &gt; 0).</div>
+          </div>
+
+          <div class="spec-cell" style="background-color: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-xs);">
+            <span class="spec-label">Core Completeness</span>
+            <div class="spec-value" style="color: var(--accent-aerospace);">96.6%</div>
+            <div class="spec-context">Coverage across key physical and stellar parameters.</div>
+          </div>
+
+          <div class="spec-cell" style="background-color: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-xs);">
+            <span class="spec-label">Storage Architecture</span>
+            <div class="spec-value" style="font-size: 1.35rem;">CSV &bull; JSON &bull; SQLite</div>
+            <div class="spec-context">SQLite database generated at outputs/exoplanet_analytics.db.</div>
+          </div>
+        </div>
+
+        <!-- Missing Values Chart -->
+        <div class="instrument-card" style="margin-bottom: 2.5rem;">
+          <div class="instrument-header">
+            <div>
+              <h3 class="instrument-title">Missing Values by Column</h3>
+              <p class="instrument-subtitle">Percentage of available vs. missing observations across each dataset attribute</p>
+            </div>
+          </div>
+          <div class="chart-viewport" style="height: 380px;">
+            <canvas id="chart-missing-values"></canvas>
+          </div>
+          <div class="instrument-footer-note">
+            In accordance with scientific data curation, unmeasured properties are left as missing (NaN) rather than imputed with zero, preventing distortion in population analytics.
+          </div>
+        </div>
+
+        <!-- Searchable Data Dictionary -->
+        <div class="instrument-card">
+          <div class="instrument-header">
+            <div>
+              <h3 class="instrument-title">Scientific Data Dictionary</h3>
+              <p class="instrument-subtitle">Field definitions, measurement units, and descriptions for all attributes</p>
+            </div>
+          </div>
+          <div tabindex="0" role="region" aria-labelledby="dict-caption" class="table-wrapper">
+            <table class="data-table" id="dictionary-table">
+              <caption id="dict-caption" style="display: none;">Data Dictionary</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Field Name</th>
+                  <th scope="col">Parameter Name</th>
+                  <th scope="col">Standard Unit</th>
+                  <th scope="col">Scientific Description</th>
+                </tr>
+              </thead>
+              <tbody id="dictionary-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Scientific Caveats Panel -->
+        <div class="caveat-panel">
+          <h4>Methodological Limitations & Observational Bias</h4>
+          <ul>
+            <li><strong>Archive Evolution:</strong> The NASA Exoplanet Archive continuously updates with revised measurements as spectroscopic and transit timing follow-ups occur.</li>
+            <li><strong>Selection Bias:</strong> Transiting surveys (Kepler, TESS) preferentially detect planets with short orbital periods and larger radii orbiting close to their parent stars.</li>
+            <li><strong>Composite Parameters:</strong> Values in `pscomppars` represent composite parameters compiled across multiple peer-reviewed publications and may not represent a single self-consistent orbital solution.</li>
+            <li><strong>Correlation vs. Causation:</strong> Statistical associations reflect both planet formation physics and observational detectability cutoffs.</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Technical Dossier Modal -->
+    <div class="modal-overlay" id="planet-modal" role="dialog" aria-modal="true" aria-labelledby="modal-planet-title">
+      <div class="modal-dialog">
+        <button class="modal-close-btn" id="btn-close-modal" aria-label="Close dialog">&times;</button>
+        <div id="modal-content">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimal Technical Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div>
+          <strong style="color: var(--text-primary); text-transform: uppercase;">EXOPLANET ANALYTICS</strong> &bull;
+          <span>NASA Exoplanet Archive TAP Service (`pscomppars`) &bull; 6,451 Verified Records</span>
+        </div>
+        <div class="footer-links">
+          <a href="outputs/exoplanets_cleaned.csv" download class="footer-link">Download Cleaned CSV</a>
+          <a href="outputs/exoplanets_cleaned.json" download class="footer-link">Download JSON</a>
+          <a href="outputs/dashboard_data.json" download class="footer-link">Dashboard Schema</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="assets/dashboard_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
